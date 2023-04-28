@@ -1,10 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 using NaughtyAttributes;
+using Thuleanx.AI.FSM;
 
 namespace Thuleanx.TArt {
     [RequireComponent(typeof(PlayerInput))]
-    public partial class Player : MonoBehaviour {
+    public partial class Player : StateMachine<Player> {
 
 #region Components
         public PlayerInput Input {get; private set; }
@@ -69,5 +71,10 @@ namespace Thuleanx.TArt {
 			resPos = pos;
 			return false;
 		}
+
+        public override void Construct() {
+            ConstructMachine(this, Enum.GetNames(typeof(Player.State)).Length, (int) Player.State.PlayerControlled);
+            AssignState((int) Player.State.PlayerControlled, );
+        }
     }
 }
