@@ -30,10 +30,17 @@ namespace Thuleanx.TArt {
         [SerializeField, ReadOnly] bool waitingForTrigger = false;
 		public bool WaitingForTrigger => waitingForTrigger;
 
+        [field:SerializeField, ReadOnly, BoxGroup("Interaction")]
+        public List<Interactible> Interactibles {get; private set; }
+        [SerializeField, ReadOnly] Interactible currentPickup;
+        
+
         void Awake() {
             Input = GetComponent<PlayerInput>();
             Anim = GetComponent<Animator>();
             NavMeshAgent = GetComponent<NavMeshAgent>();
+
+            Interactibles = new List<Interactible>();
         }
 
         void Start() {
