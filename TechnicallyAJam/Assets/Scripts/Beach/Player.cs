@@ -1,32 +1,51 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 using NaughtyAttributes;
 using Thuleanx.AI.FSM;
 
 namespace Thuleanx.TArt {
     [RequireComponent(typeof(PlayerInput))]
+    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(NavMeshAgent))]
     public partial class Player : StateMachine<Player> {
 
 #region Components
         public PlayerInput Input {get; private set; }
         public Animator Anim { get; private set; }
+        public NavMeshAgent NavMeshAgent { get; private set; }
 #endregion
 
+        [BoxGroup("Movement")]
         [SerializeField] float movementSpeed = 4;
+        [BoxGroup("Movement")]
         [SerializeField, ReadOnly] Vector3 velocity;
+
+        [BoxGroup("Animation")]
+		[SerializeField, ReorderableList] List<UnityEvent> animationEvents = new List<UnityEvent>();
+        [BoxGroup("Animation")]
+        [SerializeField, ReadOnly] bool waitingForTrigger = false;
+		public bool WaitingForTrigger => waitingForTrigger;
 
         void Awake() {
             Input = GetComponent<PlayerInput>();
             Anim = GetComponent<Animator>();
+            NavMeshAgent = GetComponent<NavMeshAgent>();
+        }
+
+        void Start() {
+            Construct();
         }
 
         void Update() {
-            velocity = Input.WorldSpace_Movement * movementSpeed;
-            Move(velocity * Time.deltaTime);
-
-            if (velocity.sqrMagnitude > 0)
-                transform.rotation = Quaternion.LookRotation(velocity, Vector3.up);
+            FindClosestNavPoint(transform.position, out Vector3 positionOnNavMesh);
+            transform.position = positionOnNavMesh;
+            NavMeshAgent.nextPosition = transform.position; // sync navmesh agent position with current
+            this.RunUpdate();
+            NavMeshAgent.velocity = velocity;
         }
 
         void LateUpdate() {
@@ -72,9 +91,26 @@ namespace Thuleanx.TArt {
 			return false;
 		}
 
-        public override void Construct() {
-            ConstructMachine(this, Enum.GetNames(typeof(Player.State)).Length, (int) Player.State.PlayerControlled);
-            AssignState((int) Player.State.PlayerControlled, );
+		void StartAnimationWait() => waitingForTrigger = true;
+        public void AnimationTrigger() => waitingForTrigger = false;
+
+		public void _TriggerAnimatedEvent(AnimationEvent animEvent) {
+			if (animEvent.animatorClipInfo.weight > 0.8f) animationEvents[animEvent.intParameter]?.Invoke();
+		}
+
+		public void _TriggerAnimatedEventUnweighted(int eventIndex) => animationEvents[eventIndex]?.Invoke();
+
+        IEnumerator _waitForTrigger() {
+            StartAnimationWait();
+            while (waitingForTrigger) yield return null;
         }
+
+        public override void Construct() {
+            ConstructMachine(this, Enum.GetNames(typeof(Player.State)).Length, (int) Player.State.Grounded, false);
+
+            AssignState((int) Player.State.Grounded, new PlayerGrounded());
+            AssignState((int) Player.State.Pickup, new PlayerPickup());
+        }
+
     }
 }
