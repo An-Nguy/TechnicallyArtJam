@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: aa5373fee164fe24e92f7623c8c21ec9
+guid: 5804793f3db7c754bb71503128bb5855
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: lambert1
-    second: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+    second: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -38,18 +38,18 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: fawn_spell
-      takeName: fawn_spell
-      internalID: 3917732695920821093
+      name: fawn_run
+      takeName: fawn_run
+      internalID: -6348141742179671696
       firstFrame: 1
-      lastFrame: 30
+      lastFrame: 47
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -61,14 +61,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.9871559
-        functionName: AnimationTrigger
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
