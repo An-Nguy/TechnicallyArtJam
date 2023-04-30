@@ -1,5 +1,51 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1808789818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1808789819}
+  - component: {fileID: 1808789820}
+  m_Layer: 0
+  m_Name: Capsule Collider
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1808789819
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808789818}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3263003802474187516}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1808789820
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808789818}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1001 &3081093088392015127
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55,6 +101,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5e98c6b0fe893fe4d901e716ecf313ff, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e98c6b0fe893fe4d901e716ecf313ff, type: 3}
 --- !u!1 &2739125387572891718 stripped
@@ -62,7 +112,27 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5e98c6b0fe893fe4d901e716ecf313ff, type: 3}
   m_PrefabInstance: {fileID: 3081093088392015127}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1415633082
+--- !u!95 &188452392254096201
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2739125387572891718}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7f43e1fda70b9244e87c51a55fe3fd19, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1415633079
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -71,23 +141,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2739125387572891718}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faf47286263e749419e1ece529087f12, type: 3}
+  m_Script: {fileID: 11500000, guid: 494c2f2fa8c1f2848835fbfda87e8f39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Movement: {x: 0, y: 0}
---- !u!114 &1415633081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2739125387572891718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2255d6cafb9e7747a4c5449aab28ae4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 4
+  overriden: 0
+  movement: {x: 0, y: 0}
 --- !u!114 &1415633080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,12 +187,28 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 59662388-27c1-4428-8360-029f21cfa9a6
     m_ActionName: Gameplay/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1415633079}
+        m_TargetAssemblyTypeName: Thuleanx.TArt.PlayerInputSystem, Assembly-CSharp
+        m_MethodName: OnInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 29120c1c-2974-4610-ac4f-4ab418452bd2
+    m_ActionName: Gameplay/Interact[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &1415633079
+--- !u!114 &1415633081
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,6 +217,56 @@ MonoBehaviour:
   m_GameObject: {fileID: 2739125387572891718}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 494c2f2fa8c1f2848835fbfda87e8f39, type: 3}
+  m_Script: {fileID: 11500000, guid: a2255d6cafb9e7747a4c5449aab28ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementSpeed: 4
+  velocity: {x: 0, y: 0, z: 0}
+  animationEvents: []
+  waitingForTrigger: 0
+  <Interactibles>k__BackingField: []
+  currentPickup: {fileID: 0}
+--- !u!114 &1415633082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2739125387572891718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faf47286263e749419e1ece529087f12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Movement: {x: 0, y: 0}
+  Interact: 0
+  OnInteract:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!195 &8318423508838097526
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2739125387572891718}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!4 &3263003802474187516 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5e98c6b0fe893fe4d901e716ecf313ff, type: 3}
+  m_PrefabInstance: {fileID: 3081093088392015127}
+  m_PrefabAsset: {fileID: 0}
